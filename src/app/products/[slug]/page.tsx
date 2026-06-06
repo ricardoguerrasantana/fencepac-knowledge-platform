@@ -7,6 +7,24 @@ type PageProps = {
   }>;
 };
 
+type SourceRecord = {
+  id: string;
+  title: string;
+  source_type: string;
+  source_owner: string | null;
+  supplier: string | null;
+  url: string | null;
+  local_file_name: string | null;
+  status: string;
+  notes: string | null;
+};
+
+type ProductSourceRecord = {
+  relationship_type: string;
+  note: string | null;
+  sources: SourceRecord | null;
+};
+
 function ListSection({ title, items }: { title: string; items: string[] | null }) {
   if (!items || items.length === 0) return null;
 
@@ -25,9 +43,62 @@ function ListSection({ title, items }: { title: string; items: string[] | null }
   );
 }
 
+function SourceCard({ productSource }: { productSource: ProductSourceRecord }) {
+  const source = productSource.sources;
+
+  if (!source) return null;
+
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+          {source.source_type}
+        </span>
+        <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+          {productSource.relationship_type}
+        </span>
+        <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+          {source.status}
+        </span>
+      </div>
+
+      <h3 className="mt-4 text-lg font-semibold text-slate-950">{source.title}</h3>
+
+      <p className="mt-2 text-sm text-slate-600">
+        {source.source_owner || "Unknown owner"}
+        {source.supplier ? ` · ${source.supplier}` : ""}
+      </p>
+
+      {productSource.note && (
+        <p className="mt-3 rounded-xl bg-slate-50 p-3 text-sm text-slate-600">
+          {productSource.note}
+        </p>
+      )}
+
+      {source.notes && <p className="mt-3 text-sm text-slate-500">{source.notes}</p>}
+
+      {source.url ? (
+        <a
+          href={source.url}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex text-sm font-medium text-blue-700 hover:underline"
+        >
+          Open web source →
+        </a>
+      ) : (
+        <p className="mt-4 text-sm font-medium text-slate-500">
+          Local file: {source.local_file_name || "Not linked yet"}
+        </p>
+      )}
+    </article>
+  );
+}
+
 export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const product = await getProductTypeBySlug(slug);
+  const productSources = (product.product_sources || []) as ProductSourceRecord[];
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
@@ -72,6 +143,30 @@ export default async function ProductDetailPage({ params }: PageProps) {
         <ListSection title="QA checks" items={product.qa_checks} />
         <ListSection title="Common risks" items={product.common_risks} />
       </div>
+
+      <section className="mt-8">
+        <div className="mb-4">
+          <h2 className="text-2xl font-semibold text-slate-950">Linked sources</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Source cards show the documents, webpages or image references behind this product type.
+          </p>
+        </div>
+
+        {productSources.length > 0 ? (
+          <div className="grid gap-4">
+            {productSources.map((productSource) => (
+              <SourceCard
+                key={`${productSource.relationship_type}-${productSource.sources?.id}`}
+                productSource={productSource}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-500">
+            No linked sources yet.
+          </div>
+        )}
+      </section>
     </main>
   );
 }
