@@ -19,7 +19,6 @@
 2. Add source cards from uploaded PDFs and web links.
 3. Add first training module.
 4. Add quiz UI.
-5. Add Holmview case study warning panel.
 
 ## Sprint 3 - Search
 
@@ -30,7 +29,7 @@
 ## Not in v0.1
 
 - Authentication
-- Worker/reviewer roles
+- Reviewer roles
 - AI chat
 - Microsoft Graph
 - Automatic PDF ingestion

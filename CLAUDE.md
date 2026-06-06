@@ -33,7 +33,6 @@ Build:
 - Glossary
 - Training module index
 - Retaining Wall Basics module
-- Holmview case study page
 
 ## Database
 

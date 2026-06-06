@@ -70,12 +70,3 @@ Lessons:
 4. Soil and surcharge basics
 5. Product overview
 6. Site risks
-7. Holmview case study
-
-### Holmview Case Study
-Must clearly show:
-- Draft / not for construction
-- TerraMesh / Mineral TerraMesh
-- hold points
-- drainage details
-- safety and QA reminders

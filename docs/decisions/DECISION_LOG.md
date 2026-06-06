@@ -10,6 +10,6 @@ Example:
 - Store "Keystone 133 Elite" as a supplier/product example and source under that topic.
 
 Reason:
-The platform should teach Fencepac workers the wall system type first. Supplier brands, brochures, manuals, and product examples should sit underneath the system type as source evidence.
+The platform should teach Fencepac team members the wall system type first. Supplier brands, brochures, manuals, and product examples should sit underneath the system type as source evidence.
 
 Holmview case study is excluded from v0.1 for now.

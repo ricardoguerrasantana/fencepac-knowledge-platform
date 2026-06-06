@@ -8,7 +8,7 @@ The first version is a simple internal knowledge browser. It has no login, no ro
 
 ## MVP Goal
 
-Workers should be able to:
+Users should be able to:
 - Open the web app locally
 - Browse retaining wall product/system topics
 - View source-backed product notes
@@ -39,7 +39,6 @@ Workers should be able to:
 9. Geogrid Reinforced Earth Slopes
 10. Concrete Panel Walls
 11. Concrete Sleeper Walls
-12. Holmview TerraMesh Case Study
 
 ## Important Content Rules
 
