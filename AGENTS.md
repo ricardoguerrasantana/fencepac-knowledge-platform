@@ -1,5 +1,20 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# Agent Instructions
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+This repo may be used by ChatGPT, Claude, and later OpenClaw.
+
+## Source of truth
+
+Read these before coding:
+- docs/ai/PROJECT_CONTEXT.md
+- docs/product/MVP_SPEC.md
+- docs/tasks/NEXT_STEPS.md
+- CLAUDE.md
+
+## Development rules
+
+- Work from the project root.
+- Run npm scripts before saying a task is done.
+- Keep changes small.
+- Ask before deleting files.
+- Do not modify secrets.
+- Do not commit confidential source documents.
