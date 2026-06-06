@@ -1,65 +1,79 @@
-import Image from "next/image";
+import Link from "next/link";
+import {
+  getGlossaryTerms,
+  getProductTypes,
+  getSources,
+  getTrainingModules,
+} from "@/lib/data/knowledge";
 
-export default function Home() {
+export default async function HomePage() {
+  const [products, sources, glossaryTerms, trainingModules] = await Promise.all([
+    getProductTypes(),
+    getSources(),
+    getGlossaryTerms(),
+    getTrainingModules(),
+  ]);
+
+  const stats = [
+    { label: "Product types", value: products.length, href: "/products" },
+    { label: "Sources", value: sources.length, href: "/sources" },
+    { label: "Glossary terms", value: glossaryTerms.length, href: "/glossary" },
+    { label: "Training modules", value: trainingModules.length, href: "/training" },
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="mx-auto max-w-7xl px-6 py-10">
+      <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <p className="text-sm font-medium text-slate-500">Local MVP</p>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-950">
+          Fencepac Knowledge Platform
+        </h1>
+        <p className="mt-4 max-w-3xl text-slate-600">
+          A source-backed retaining wall knowledge browser for product types, source documents,
+          glossary terms and training content.
+        </p>
+
+        <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          MVP warning: this app is not engineering advice. Content is seeded for review and must be
+          checked against project-specific drawings, supplier documentation and supervisor direction.
+        </div>
+      </section>
+
+      <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <Link
+            key={stat.label}
+            href={stat.href}
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <p className="text-sm font-medium text-slate-500">{stat.label}</p>
+            <p className="mt-2 text-3xl font-bold text-slate-950">{stat.value}</p>
+          </Link>
+        ))}
+      </section>
+
+      <section className="mt-6 grid gap-5 lg:grid-cols-2">
+        <Link
+          href="/products"
+          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+        >
+          <h2 className="text-xl font-semibold text-slate-950">Browse retaining wall systems</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Start with system types like crib walls, gabions, MSE walls, sleeper walls and segmental
+            block walls.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </Link>
+
+        <Link
+          href="/training"
+          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+        >
+          <h2 className="text-xl font-semibold text-slate-950">Open training module</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Review the first Retaining Wall Basics module and use it as the prototype training path.
+          </p>
+        </Link>
+      </section>
+    </main>
   );
 }
