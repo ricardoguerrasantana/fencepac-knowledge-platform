@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getProductTypeBySlug } from "@/lib/data/knowledge";
 
@@ -106,7 +107,19 @@ export default async function ProductDetailPage({ params }: PageProps) {
         ← Back to products
       </Link>
 
+      
+
       <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="mb-6 overflow-hidden rounded-2xl bg-slate-100">
+          <Image
+            src={product.hero_image_path || "/images/wall-systems/concrete-crib-walls.svg"}
+            alt={`${product.name} representative placeholder image`}
+            width={1200}
+            height={760}
+            className="h-72 w-full object-cover"
+            priority
+          />
+        </div>
         <div className="mb-4 flex flex-wrap gap-3">
           <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
             {product.category}

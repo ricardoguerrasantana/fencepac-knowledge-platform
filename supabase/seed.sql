@@ -1,5 +1,5 @@
 insert into public.product_types
-(slug, name, category, system_type, short_description, typical_use, key_components, installation_basics, qa_checks, common_risks, source_status)
+(slug, name, category, system_type, short_description, typical_use, key_components, installation_basics, qa_checks, common_risks, source_status, hero_image_path)
 values
 (
   'concrete-crib-walls',
@@ -12,7 +12,8 @@ values
   array['Set out wall alignment and levels', 'Prepare foundation/footing as designed', 'Place first stretcher/back stretcher into wet footing where required', 'Install crib components course by course', 'Place free-draining granular material', 'Install geotextile and ag pipe drainage as specified'],
   array['Check wall set-out', 'Check foundation bearing assumptions', 'Check drainage outlet falls', 'Check correct crib component type', 'Check geotextile separation layer', 'Check backfill/infill placement'],
   array['Poor drainage causing hydrostatic pressure', 'Incorrect component placement', 'Insufficient bearing capacity', 'Missing geotextile', 'Blocked or flat ag pipe', 'Using generic details without engineer review'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/concrete-crib-walls.svg'
 ),
 (
   'cut-sandstone-gravity-walls',
@@ -25,7 +26,8 @@ values
   array['Prepare stable foundation', 'Place sandstone blocks to line and level', 'Maintain appropriate batter/setback where designed', 'Provide drainage behind wall', 'Backfill progressively'],
   array['Check block quality and size', 'Check foundation condition', 'Check wall alignment', 'Check drainage behind wall', 'Check no unsupported excavation remains behind wall'],
   array['Inadequate foundation', 'No drainage', 'Blocks not seated properly', 'Uncontrolled surcharge near crest', 'Assuming visual wall is structurally suitable without design'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/cut-sandstone-gravity-walls.svg'
 ),
 (
   'segmental-block-retaining-walls',
@@ -38,7 +40,8 @@ values
   array['Excavate and prepare base', 'Install compacted levelling pad', 'Place first course accurately', 'Install drainage aggregate and ag pipe', 'Install geogrid layers where specified', 'Backfill and compact in layers', 'Install caps/finish'],
   array['Check first course level', 'Check geogrid type/length/orientation', 'Check drainage layer', 'Check compaction', 'Check setback/batter', 'Check surcharge limits near crest'],
   array['Poor first course alignment', 'Wrong geogrid or missing geogrid', 'Inadequate compaction', 'No drainage outlet', 'Using brand brochure instead of project design'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/segmental-block-retaining-walls.svg'
 ),
 (
   'large-format-concrete-block-walls',
@@ -51,7 +54,8 @@ values
   array['Prepare foundation', 'Place large blocks using suitable lifting method', 'Maintain alignment and batter', 'Install extenders/geogrid/reinforcement where specified', 'Provide drainage', 'Backfill and compact progressively'],
   array['Check lifting method', 'Check block orientation', 'Check reinforcement connection', 'Check drainage path', 'Check design detail for gravity vs reinforced wall'],
   array['Incorrect lifting/handling', 'Misunderstanding gravity vs reinforced design', 'Poor connection to reinforcement', 'Inadequate drainage', 'Uncontrolled surcharge'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/large-format-concrete-block-walls.svg'
 ),
 (
   'gabion-gravity-walls',
@@ -64,7 +68,8 @@ values
   array['Prepare foundation', 'Assemble baskets', 'Connect adjacent baskets', 'Brace visible faces', 'Place rock carefully on visible faces', 'Fill baskets', 'Close lids and lace/C-ring securely'],
   array['Check basket alignment', 'Check wire coating/specification', 'Check rock size and quality', 'Check visible face hand placement', 'Check connections between baskets', 'Check settlement/drainage conditions'],
   array['Poor rock placement causing bulging', 'Incorrect lacing', 'Damaged coating', 'Undersized rock', 'Weak foundation', 'Assuming all gabions are reinforced earth walls'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/gabion-gravity-walls.svg'
 ),
 (
   'gabion-faced-mse-walls',
@@ -77,7 +82,8 @@ values
   array['Prepare foundation', 'Install facing units', 'Connect reinforcement to facing', 'Place and compact structural backfill', 'Repeat in layers', 'Maintain face alignment and drainage'],
   array['Check reinforcement type and length', 'Check connection details', 'Check structural backfill quality', 'Check compaction testing', 'Check face angle/alignment', 'Check drainage details'],
   array['Confusing gabion gravity wall with MSE wall', 'Wrong reinforcement length', 'Poor connection capacity', 'Unsuitable backfill', 'Inadequate compaction', 'Missing hold points'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/gabion-faced-mse-walls.svg'
 ),
 (
   'vegetated-reinforced-soil-slopes',
@@ -90,7 +96,8 @@ values
   array['Prepare foundation and slope geometry', 'Install facing mesh and bracing', 'Install erosion control blanket', 'Place reinforcement/tail', 'Place and compact backfill layers', 'Establish vegetation'],
   array['Check slope angle', 'Check erosion blanket placement', 'Check reinforcement/tail length', 'Check compaction', 'Check drainage and erosion risk', 'Check vegetation establishment requirements'],
   array['Erosion before vegetation establishes', 'Wrong face angle', 'Poor compaction near face', 'Incorrect reinforcement placement', 'Water concentration at crest'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/vegetated-reinforced-soil-slopes.svg'
 ),
 (
   'rock-faced-mse-rss-walls',
@@ -103,7 +110,8 @@ values
   array['Prepare foundation', 'Set facing units to designed angle', 'Place rock facing', 'Install reinforcement layers', 'Place and compact backfill', 'Maintain face alignment and drainage'],
   array['Check face angle', 'Check reinforcement length/type', 'Check rock fill quality', 'Check compaction testing', 'Check drainage', 'Check connection/tail placement'],
   array['Wrong face angle', 'Poor rock facing placement', 'Incorrect reinforcement overlap or length', 'Unsuitable backfill', 'Insufficient compaction near face'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/rock-faced-mse-rss-walls.svg'
 ),
 (
   'geogrid-reinforced-soil-slopes',
@@ -116,7 +124,8 @@ values
   array['Prepare foundation and toe conditions', 'Place geogrid to correct orientation and length', 'Place backfill', 'Compact in layers', 'Install facing/erosion protection', 'Repeat to design height'],
   array['Check geogrid product and strength', 'Check roll direction/orientation', 'Check overlap and anchorage', 'Check compaction', 'Check fill quality', 'Check drainage and toe support'],
   array['Wrong geogrid orientation', 'Damaged geogrid', 'Poor compaction', 'Unsuitable fill', 'No control of water', 'Missing geotechnical inspection'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/geogrid-reinforced-soil-slopes.svg'
 ),
 (
   'concrete-panel-mse-walls',
@@ -129,7 +138,8 @@ values
   array['Install levelling pad', 'Place facing panels', 'Connect reinforcement', 'Place and compact select backfill in layers', 'Maintain panel alignment', 'Install drainage and finishing details'],
   array['Check panel alignment', 'Check reinforcement connection', 'Check backfill quality', 'Check compaction results', 'Check drainage layer', 'Check panel damage and bearing pads'],
   array['Panel misalignment', 'Poor backfill compaction', 'Incorrect reinforcement connection', 'Unsuitable fill', 'Water build-up', 'Damage to panels during handling'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/concrete-panel-mse-walls.svg'
 ),
 (
   'concrete-sleeper-walls',
@@ -142,7 +152,8 @@ values
   array['Set out post locations', 'Excavate post holes', 'Install posts with designed embedment and lean-back', 'Concrete posts in place', 'Install sleeper panels', 'Install drainage and backfill progressively'],
   array['Check post spacing', 'Check embedment depth', 'Check concrete grade/cover where specified', 'Check lean-back', 'Check drainage outlet', 'Check sleeper condition'],
   array['Insufficient post embedment', 'No drainage behind wall', 'Wrong post spacing', 'Poor concrete around posts', 'Wall loaded beyond design', 'Assuming sleeper walls address global slip risk'],
-  'needs_review'
+  'needs_review',
+  '/images/wall-systems/concrete-sleeper-walls.svg'
 )
 on conflict (slug) do update set
   name = excluded.name,
@@ -154,7 +165,8 @@ on conflict (slug) do update set
   installation_basics = excluded.installation_basics,
   qa_checks = excluded.qa_checks,
   common_risks = excluded.common_risks,
-  source_status = excluded.source_status;
+  source_status = excluded.source_status,
+  hero_image_path = excluded.hero_image_path;
 
 insert into public.sources
 (slug, title, source_type, source_owner, supplier, url, local_file_name, status, notes, is_confidential)

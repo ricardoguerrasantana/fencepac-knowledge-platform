@@ -1,0 +1,33 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" fill="#F8FAFC"/>
+  <rect x="70" y="70" width="1060" height="620" rx="36" fill="#E2E8F0"/>
+  <rect x="110" y="110" width="980" height="540" rx="28" fill="#CBD5E1"/>
+
+  <path d="M130 585 L1070 585" stroke="#475569" stroke-width="18" stroke-linecap="round"/>
+  <path d="M170 555 L1030 555" stroke="#64748B" stroke-width="10" stroke-linecap="round"/>
+
+  <g opacity="0.9">
+    <rect x="180" y="380" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="320" y="380" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="460" y="380" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="600" y="380" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="740" y="380" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="880" y="380" width="120" height="70" rx="10" fill="#64748B"/>
+
+    <rect x="250" y="295" width="120" height="70" rx="10" fill="#94A3B8"/>
+    <rect x="390" y="295" width="120" height="70" rx="10" fill="#94A3B8"/>
+    <rect x="530" y="295" width="120" height="70" rx="10" fill="#94A3B8"/>
+    <rect x="670" y="295" width="120" height="70" rx="10" fill="#94A3B8"/>
+    <rect x="810" y="295" width="120" height="70" rx="10" fill="#94A3B8"/>
+
+    <rect x="320" y="210" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="460" y="210" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="600" y="210" width="120" height="70" rx="10" fill="#64748B"/>
+    <rect x="740" y="210" width="120" height="70" rx="10" fill="#64748B"/>
+  </g>
+
+  <text x="600" y="505" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#0F172A">Segmental Block Walls</text>
+  <text x="600" y="555" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#334155">Dry-stacked modular retaining wall</text>
+
+  <text x="600" y="630" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#64748B">Placeholder image — replace with approved Fencepac project photo</text>
+</svg>

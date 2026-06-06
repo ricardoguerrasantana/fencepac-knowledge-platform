@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getProductTypes } from "@/lib/data/knowledge";
 
@@ -9,10 +10,10 @@ export default async function ProductsPage() {
       <div className="mb-8">
         <p className="text-sm font-medium text-slate-500">Fencepac Knowledge Platform</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">
-          Retaining wall product types
+          Retaining wall systems
         </h1>
         <p className="mt-3 max-w-3xl text-slate-600">
-          Browse retaining wall systems by product type. Supplier brands and brochures are stored as
+          Browse retaining wall systems by wall system type. Supplier brands and brochures are stored as
           sources underneath each system type.
         </p>
       </div>
@@ -24,6 +25,16 @@ export default async function ProductsPage() {
             href={`/products/${product.slug}`}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
           >
+            <div className="mb-4 overflow-hidden rounded-2xl bg-slate-100">
+              <Image
+                src={product.hero_image_path || "/images/wall-systems/concrete-crib-walls.svg"}
+                alt={`${product.name} placeholder image`}
+                width={1200}
+                height={760}
+                className="h-44 w-full object-cover"
+              />
+            </div>
+            
             <div className="mb-3 flex items-center justify-between gap-3">
               <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
                 {product.category}
