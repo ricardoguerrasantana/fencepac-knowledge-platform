@@ -109,7 +109,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                           {source.status}
                         </span>
                       </div>
-                      <p className="mt-3 font-semibold text-slate-950">{source.title}</p>
+                      <Link
+                        href={`/sources/${source.slug}`}
+                        className="mt-3 block font-semibold text-slate-950 hover:text-blue-700"
+                      >
+                        {source.title}
+                      </Link>
                       <p className="mt-1 text-sm text-slate-600">
                         {source.source_owner || "Unknown owner"}
                         {source.supplier ? ` · ${source.supplier}` : ""}

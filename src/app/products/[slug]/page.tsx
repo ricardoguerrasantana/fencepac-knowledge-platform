@@ -18,6 +18,7 @@ type SourceRecord = {
   local_file_name: string | null;
   status: string;
   notes: string | null;
+  slug: string;
 };
 
 type ProductSourceRecord = {
@@ -63,7 +64,12 @@ function SourceCard({ productSource }: { productSource: ProductSourceRecord }) {
         </span>
       </div>
 
-      <h3 className="mt-4 text-lg font-semibold text-slate-950">{source.title}</h3>
+      <Link
+        href={`/sources/${source.slug}`}
+        className="mt-4 block text-lg font-semibold text-slate-950 hover:text-blue-700"
+      >
+        {source.title}
+      </Link>
 
       <p className="mt-2 text-sm text-slate-600">
         {source.source_owner || "Unknown owner"}
