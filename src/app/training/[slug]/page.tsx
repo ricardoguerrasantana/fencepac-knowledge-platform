@@ -5,6 +5,7 @@ import {
   getWallSystemsBySlugs,
 } from "@/lib/data/knowledge";
 import { InteractiveQuiz } from "@/components/training/InteractiveQuiz";
+import { CompetencyChecklist } from "@/components/training/CompetencyChecklist";
 
 type PageProps = {
   params: Promise<{
@@ -301,6 +302,7 @@ export default async function TrainingModulePage({ params }: PageProps) {
       </section>
 
       <InteractiveQuiz questions={quizQuestions} />
+      <CompetencyChecklist moduleSlug={trainingModule.slug} />
     </main>
   );
 }
