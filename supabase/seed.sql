@@ -13,7 +13,7 @@ values
   array['Check wall set-out', 'Check foundation bearing assumptions', 'Check drainage outlet falls', 'Check correct crib component type', 'Check geotextile separation layer', 'Check backfill/infill placement'],
   array['Poor drainage causing hydrostatic pressure', 'Incorrect component placement', 'Insufficient bearing capacity', 'Missing geotextile', 'Blocked or flat ag pipe', 'Using generic details without engineer review'],
   'needs_review',
-  '/images/wall-systems/concrete-crib-walls.svg'
+  '/images/wall-systems/concrete-crib-walls.jpg'
 ),
 (
   'cut-sandstone-gravity-walls',
@@ -27,7 +27,7 @@ values
   array['Check block quality and size', 'Check foundation condition', 'Check wall alignment', 'Check drainage behind wall', 'Check no unsupported excavation remains behind wall'],
   array['Inadequate foundation', 'No drainage', 'Blocks not seated properly', 'Uncontrolled surcharge near crest', 'Assuming visual wall is structurally suitable without design'],
   'needs_review',
-  '/images/wall-systems/cut-sandstone-gravity-walls.svg'
+  '/images/wall-systems/cut-sandstone-gravity-walls.jpg'
 ),
 (
   'segmental-block-retaining-walls',
@@ -41,7 +41,7 @@ values
   array['Check first course level', 'Check geogrid type/length/orientation', 'Check drainage layer', 'Check compaction', 'Check setback/batter', 'Check surcharge limits near crest'],
   array['Poor first course alignment', 'Wrong geogrid or missing geogrid', 'Inadequate compaction', 'No drainage outlet', 'Using brand brochure instead of project design'],
   'needs_review',
-  '/images/wall-systems/segmental-block-retaining-walls.svg'
+  '/images/wall-systems/segmental-block-retaining-walls.jpg'
 ),
 (
   'large-format-concrete-block-walls',
@@ -55,7 +55,7 @@ values
   array['Check lifting method', 'Check block orientation', 'Check reinforcement connection', 'Check drainage path', 'Check design detail for gravity vs reinforced wall'],
   array['Incorrect lifting/handling', 'Misunderstanding gravity vs reinforced design', 'Poor connection to reinforcement', 'Inadequate drainage', 'Uncontrolled surcharge'],
   'needs_review',
-  '/images/wall-systems/large-format-concrete-block-walls.svg'
+  '/images/wall-systems/large-format-concrete-block-walls.jpg'
 ),
 (
   'gabion-gravity-walls',
@@ -69,7 +69,7 @@ values
   array['Check basket alignment', 'Check wire coating/specification', 'Check rock size and quality', 'Check visible face hand placement', 'Check connections between baskets', 'Check settlement/drainage conditions'],
   array['Poor rock placement causing bulging', 'Incorrect lacing', 'Damaged coating', 'Undersized rock', 'Weak foundation', 'Assuming all gabions are reinforced earth walls'],
   'needs_review',
-  '/images/wall-systems/gabion-gravity-walls.svg'
+  '/images/wall-systems/gabion-gravity-walls.jpg'
 ),
 (
   'gabion-faced-mse-walls',
@@ -83,7 +83,7 @@ values
   array['Check reinforcement type and length', 'Check connection details', 'Check structural backfill quality', 'Check compaction testing', 'Check face angle/alignment', 'Check drainage details'],
   array['Confusing gabion gravity wall with MSE wall', 'Wrong reinforcement length', 'Poor connection capacity', 'Unsuitable backfill', 'Inadequate compaction', 'Missing hold points'],
   'needs_review',
-  '/images/wall-systems/gabion-faced-mse-walls.svg'
+  '/images/wall-systems/gabion-faced-mse-walls.jpg'
 ),
 (
   'vegetated-reinforced-soil-slopes',
@@ -97,7 +97,7 @@ values
   array['Check slope angle', 'Check erosion blanket placement', 'Check reinforcement/tail length', 'Check compaction', 'Check drainage and erosion risk', 'Check vegetation establishment requirements'],
   array['Erosion before vegetation establishes', 'Wrong face angle', 'Poor compaction near face', 'Incorrect reinforcement placement', 'Water concentration at crest'],
   'needs_review',
-  '/images/wall-systems/vegetated-reinforced-soil-slopes.svg'
+  '/images/wall-systems/vegetated-reinforced-soil-slopes.jpg'
 ),
 (
   'rock-faced-mse-rss-walls',
@@ -111,7 +111,7 @@ values
   array['Check face angle', 'Check reinforcement length/type', 'Check rock fill quality', 'Check compaction testing', 'Check drainage', 'Check connection/tail placement'],
   array['Wrong face angle', 'Poor rock facing placement', 'Incorrect reinforcement overlap or length', 'Unsuitable backfill', 'Insufficient compaction near face'],
   'needs_review',
-  '/images/wall-systems/rock-faced-mse-rss-walls.svg'
+  '/images/wall-systems/rock-faced-mse-rss-walls.jpg'
 ),
 (
   'geogrid-reinforced-soil-slopes',
@@ -125,7 +125,7 @@ values
   array['Check geogrid product and strength', 'Check roll direction/orientation', 'Check overlap and anchorage', 'Check compaction', 'Check fill quality', 'Check drainage and toe support'],
   array['Wrong geogrid orientation', 'Damaged geogrid', 'Poor compaction', 'Unsuitable fill', 'No control of water', 'Missing geotechnical inspection'],
   'needs_review',
-  '/images/wall-systems/geogrid-reinforced-soil-slopes.svg'
+  '/images/wall-systems/geogrid-reinforced-soil-slopes.jpg'
 ),
 (
   'concrete-panel-mse-walls',
@@ -139,7 +139,7 @@ values
   array['Check panel alignment', 'Check reinforcement connection', 'Check backfill quality', 'Check compaction results', 'Check drainage layer', 'Check panel damage and bearing pads'],
   array['Panel misalignment', 'Poor backfill compaction', 'Incorrect reinforcement connection', 'Unsuitable fill', 'Water build-up', 'Damage to panels during handling'],
   'needs_review',
-  '/images/wall-systems/concrete-panel-mse-walls.svg'
+  '/images/wall-systems/concrete-panel-mse-walls.jpg'
 ),
 (
   'concrete-sleeper-walls',
@@ -153,7 +153,7 @@ values
   array['Check post spacing', 'Check embedment depth', 'Check concrete grade/cover where specified', 'Check lean-back', 'Check drainage outlet', 'Check sleeper condition'],
   array['Insufficient post embedment', 'No drainage behind wall', 'Wrong post spacing', 'Poor concrete around posts', 'Wall loaded beyond design', 'Assuming sleeper walls address global slip risk'],
   'needs_review',
-  '/images/wall-systems/concrete-sleeper-walls.svg'
+  '/images/wall-systems/concrete-sleeper-walls.jpg'
 )
 on conflict (slug) do update set
   name = excluded.name,
