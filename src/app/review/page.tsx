@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getEvidenceNotesForReview } from "@/lib/data/knowledge";
+import { updateEvidenceReviewStatus } from "./actions";
 
 export default async function ReviewQueuePage() {
   const notes = await getEvidenceNotesForReview();
@@ -17,7 +18,7 @@ export default async function ReviewQueuePage() {
       </div>
 
       <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
-        AI-assisted or seeded content must stay in review until checked against source documents,
+        Seeded or AI-assisted content must stay in review until checked against source documents,
         project-specific drawings, supplier documentation and supervisor direction.
       </div>
 
@@ -86,6 +87,53 @@ export default async function ReviewQueuePage() {
                   <p className="mt-1">{note.section_reference || "Not specified"}</p>
                 </div>
               </div>
+
+              <form action={updateEvidenceReviewStatus} className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <input type="hidden" name="noteId" value={note.id} />
+
+                <label
+                  htmlFor={`review-note-${note.id}`}
+                  className="text-sm font-semibold text-slate-700"
+                >
+                  Review decision note
+                </label>
+                <textarea
+                  id={`review-note-${note.id}`}
+                  name="reviewDecisionNote"
+                  rows={2}
+                  placeholder="Optional: explain why this note was reviewed, superseded, or returned for review..."
+                  className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-slate-900"
+                />
+
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <button
+                    type="submit"
+                    name="reviewStatus"
+                    value="reviewed"
+                    className="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                  >
+                    Mark reviewed
+                  </button>
+
+                  <button
+                    type="submit"
+                    name="reviewStatus"
+                    value="superseded"
+                    className="rounded-xl bg-slate-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  >
+                    Mark superseded
+                  </button>
+
+                  <button
+                    type="submit"
+                    name="reviewStatus"
+                    value="needs_review"
+                    className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-800 transition hover:bg-amber-100"
+                  >
+                    Return to needs review
+                  </button>
+                </div>
+              </form>
             </article>
           ))}
         </div>
