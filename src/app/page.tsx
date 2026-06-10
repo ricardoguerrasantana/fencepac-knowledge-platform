@@ -4,14 +4,16 @@ import {
   getProductTypes,
   getSources,
   getTrainingModules,
+  getEvidenceNotes,
 } from "@/lib/data/knowledge";
 
 export default async function HomePage() {
-  const [products, sources, glossaryTerms, trainingModules] = await Promise.all([
+  const [products, sources, glossaryTerms, trainingModules, evidenceNotes] = await Promise.all([
     getProductTypes(),
     getSources(),
     getGlossaryTerms(),
     getTrainingModules(),
+    getEvidenceNotes(),
   ]);
 
   const stats = [
@@ -19,6 +21,7 @@ export default async function HomePage() {
     { label: "Sources", value: sources.length, href: "/sources" },
     { label: "Glossary terms", value: glossaryTerms.length, href: "/glossary" },
     { label: "Training modules", value: trainingModules.length, href: "/training" },
+    { label: "Evidence notes", value: evidenceNotes.length, href: "/evidence" },
   ];
 
   return (
