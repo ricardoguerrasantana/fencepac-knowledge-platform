@@ -27,7 +27,7 @@ export default async function ProductsPage() {
           >
             <div className="mb-4 overflow-hidden rounded-2xl bg-slate-100">
               <Image
-                src={product.hero_image_path || "/images/wall-systems/concrete-crib-walls.svg"}
+                src={product.hero_image_path || "/images/wall-systems/concrete-crib-walls.jpg"}
                 alt={`${product.name} placeholder image`}
                 width={1200}
                 height={760}
