@@ -14,7 +14,7 @@ Dashboard with:
 - training module card
 - warnings for draft content
 
-### Products
+### Wall Systems
 Grid of product/system cards.
 
 Each card shows:

@@ -27,7 +27,7 @@ You are helping implement a Next.js + Supabase app.
 
 Build:
 - Home dashboard
-- Products index
+- Wall Systems index
 - Product detail pages
 - Sources register
 - Glossary

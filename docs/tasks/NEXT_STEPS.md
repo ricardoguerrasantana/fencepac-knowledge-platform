@@ -7,7 +7,7 @@
 3. Create database schema migration.
 4. Create seed data.
 5. Build layout/navigation.
-6. Build Products page.
+6. Build Wall Systems page.
 7. Build Product Detail page.
 8. Build Sources page.
 9. Build Glossary page.

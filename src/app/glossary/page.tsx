@@ -11,7 +11,7 @@ export default async function GlossaryPage() {
           Glossary
         </h1>
         <p className="mt-3 max-w-3xl text-slate-600">
-          Plain-English retaining wall terms for team members learning product types and site language.
+          Plain-English retaining wall terms for team members learning wall systems and site language.
         </p>
       </div>
 

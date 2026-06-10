@@ -1,5 +1,5 @@
 
-## Decision: Use product types, not supplier brand names, as main knowledge topics
+## Decision: Use wall systems, not supplier brand names, as main knowledge topics
 
 Date: 2026-06-06
 

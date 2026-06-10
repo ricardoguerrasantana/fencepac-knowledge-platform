@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Fencepac Knowledge Platform",
-  description: "Local knowledge browser for retaining wall product types and training.",
+  description: "Local knowledge browser for retaining wall systems and training.",
 };
 
 export default function RootLayout({

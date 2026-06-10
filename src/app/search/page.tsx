@@ -72,7 +72,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   results.products.map((product) => (
                     <Link
                       key={product.id}
-                      href={`/products/${product.slug}`}
+                      href={`/wall-systems/${product.slug}`}
                       className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md"
                     >
                       <p className="font-semibold text-slate-950">{product.name}</p>

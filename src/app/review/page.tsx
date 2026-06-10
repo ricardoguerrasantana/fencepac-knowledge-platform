@@ -52,7 +52,7 @@ export default async function ReviewQueuePage() {
                   <p className="font-semibold text-slate-700">Wall system</p>
                   {note.product_types ? (
                     <Link
-                      href={`/products/${note.product_types.slug}`}
+                      href={`/wall-systems/${note.product_types.slug}`}
                       className="mt-1 block text-blue-700 hover:underline"
                     >
                       {note.product_types.name}

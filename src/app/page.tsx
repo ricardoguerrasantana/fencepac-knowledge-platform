@@ -15,7 +15,7 @@ export default async function HomePage() {
   ]);
 
   const stats = [
-    { label: "Product types", value: products.length, href: "/products" },
+    { label: "Wall systems", value: products.length, href: "/wall-systems" },
     { label: "Sources", value: sources.length, href: "/sources" },
     { label: "Glossary terms", value: glossaryTerms.length, href: "/glossary" },
     { label: "Training modules", value: trainingModules.length, href: "/training" },
@@ -29,7 +29,7 @@ export default async function HomePage() {
           Fencepac Knowledge Platform
         </h1>
         <p className="mt-4 max-w-3xl text-slate-600">
-          A source-backed retaining wall knowledge browser for product types, source documents,
+          A source-backed retaining wall knowledge browser for wall systems, source documents,
           glossary terms and training content.
         </p>
 
@@ -54,7 +54,7 @@ export default async function HomePage() {
 
       <section className="mt-6 grid gap-5 lg:grid-cols-2">
         <Link
-          href="/products"
+          href="/wall-systems"
           className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
         >
           <h2 className="text-xl font-semibold text-slate-950">Browse retaining wall systems</h2>

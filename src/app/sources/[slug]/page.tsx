@@ -121,7 +121,7 @@ export default async function SourceDetailPage({ params }: PageProps) {
               return (
                 <Link
                   key={`${product.id}-${link.relationship_type}`}
-                  href={`/products/${product.slug}`}
+                  href={`/wall-systems/${product.slug}`}
                   className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <div className="flex flex-wrap gap-2">
