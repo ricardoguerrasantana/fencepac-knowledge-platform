@@ -298,3 +298,295 @@ on conflict (module_id, question_order) do update set
   correct_answer = excluded.correct_answer,
   explanation = excluded.explanation,
   source_status = excluded.source_status;
+
+insert into public.evidence_notes
+(product_type_id, source_id, title, body, evidence_type, page_reference, section_reference, confidence, review_status)
+select
+  p.id,
+  s.id,
+  x.title,
+  x.body,
+  x.evidence_type,
+  x.page_reference,
+  x.section_reference,
+  x.confidence,
+  x.review_status
+from (
+  values
+  (
+    'concrete-crib-walls',
+    'concrete-crib-units-pdf',
+    'Crib wall components',
+    'Concrete crib retaining walls are represented in the source register as systems made from components such as headers, stretchers, closers, back stretchers, spacer blocks and taper units.',
+    'component_note',
+    'Page 1',
+    'Components table',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'concrete-crib-walls',
+    'crib-single-construction-pdf',
+    'Crib wall drainage elements',
+    'The single construction crib wall source record includes free-draining granular material, geotextile separation and ag pipe drainage as key construction elements.',
+    'installation_note',
+    'Page 1',
+    'Typical cross-section',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'segmental-block-retaining-walls',
+    'keystone-133-elite-brochure',
+    'Segmental block walls as system type',
+    'Keystone 133 Elite is stored as a supplier product example under the broader wall system type Segmental Block Retaining Walls, not as a top-level wall system.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'high',
+    'needs_review'
+  ),
+  (
+    'large-format-concrete-block-walls',
+    'magnumstone-brochure',
+    'Large format concrete block wall example',
+    'MagnumStone is stored as a supplier product example under Large Format Concrete Block Retaining Walls. The system may be used in gravity or reinforced configurations depending on design.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'gabion-gravity-walls',
+    'gabion-gravity-walls-pdf',
+    'Gabion gravity wall principle',
+    'Gabion gravity walls are stored as rock-filled wire basket gravity wall systems, separate from gabion-faced reinforced earth systems.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'gabion-faced-mse-walls',
+    'gabion-reinforced-earth-walls-pdf',
+    'Gabion-faced MSE distinction',
+    'Gabion-faced MSE walls are classified separately from gabion gravity walls because the reinforced soil mass contributes to the retaining system.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'vegetated-reinforced-soil-slopes',
+    'terramesh-natural-pdf',
+    'Vegetated reinforced soil slope',
+    'Vegetated reinforced soil slopes are classified as reinforced soil slope systems with an inclined vegetated face and reinforcement extending into compacted backfill.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'rock-faced-mse-rss-walls',
+    'terramesh-rock-faced-pdf',
+    'Rock-faced reinforced soil system',
+    'Rock-faced MSE/RSS walls are classified as reinforced soil systems with a rock-faced mesh or gabion-style face, separate from basic gabion gravity walls.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'geogrid-reinforced-soil-slopes',
+    'geogrid-reinforced-earth-slopes-pdf',
+    'Geogrid reinforced slope concept',
+    'Geogrid reinforced soil slopes are classified as reinforced earthworks where geogrid layers and compacted fill work together to stabilise a slope or embankment.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'concrete-panel-mse-walls',
+    'concrete-panel-walls-pdf',
+    'Concrete panel MSE wall concept',
+    'Concrete panel MSE walls are classified as reinforced earth systems using concrete facing panels connected to soil reinforcement within engineered backfill.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'concrete-sleeper-walls',
+    'concrete-sleeper-wall-section-pdf',
+    'Concrete sleeper wall system',
+    'Concrete sleeper retaining walls are classified as vertical post-and-panel retaining wall systems, distinct from gravity walls and MSE walls.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  )
+) as x(product_slug, source_slug, title, body, evidence_type, page_reference, section_reference, confidence, review_status)
+join public.product_types p on p.slug = x.product_slug
+join public.sources s on s.slug = x.source_slug
+where not exists (
+  select 1
+  from public.evidence_notes existing
+  where existing.product_type_id = p.id
+    and existing.source_id = s.id
+    and existing.title = x.title
+);
+
+insert into public.evidence_notes
+(product_type_id, source_id, title, body, evidence_type, page_reference, section_reference, confidence, review_status)
+select
+  p.id,
+  s.id,
+  x.title,
+  x.body,
+  x.evidence_type,
+  x.page_reference,
+  x.section_reference,
+  x.confidence,
+  x.review_status
+from (
+  values
+  (
+    'concrete-crib-walls',
+    'concrete-crib-units-pdf',
+    'Crib wall components',
+    'Concrete crib retaining walls are represented in the source register as systems made from components such as headers, stretchers, closers, back stretchers, spacer blocks and taper units.',
+    'component_note',
+    'Page 1',
+    'Components table',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'concrete-crib-walls',
+    'crib-single-construction-pdf',
+    'Crib wall drainage elements',
+    'The single construction crib wall source record includes free-draining granular material, geotextile separation and ag pipe drainage as key construction elements.',
+    'installation_note',
+    'Page 1',
+    'Typical cross-section',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'segmental-block-retaining-walls',
+    'keystone-133-elite-brochure',
+    'Segmental block walls as system type',
+    'Keystone 133 Elite is stored as a supplier product example under the broader wall system type Segmental Block Retaining Walls, not as a top-level wall system.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'high',
+    'needs_review'
+  ),
+  (
+    'large-format-concrete-block-walls',
+    'magnumstone-brochure',
+    'Large format concrete block wall example',
+    'MagnumStone is stored as a supplier product example under Large Format Concrete Block Retaining Walls. The system may be used in gravity or reinforced configurations depending on design.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'gabion-gravity-walls',
+    'gabion-gravity-walls-pdf',
+    'Gabion gravity wall principle',
+    'Gabion gravity walls are stored as rock-filled wire basket gravity wall systems, separate from gabion-faced reinforced earth systems.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'gabion-faced-mse-walls',
+    'gabion-reinforced-earth-walls-pdf',
+    'Gabion-faced MSE distinction',
+    'Gabion-faced MSE walls are classified separately from gabion gravity walls because the reinforced soil mass contributes to the retaining system.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'vegetated-reinforced-soil-slopes',
+    'terramesh-natural-pdf',
+    'Vegetated reinforced soil slope',
+    'Vegetated reinforced soil slopes are classified as reinforced soil slope systems with an inclined vegetated face and reinforcement extending into compacted backfill.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'rock-faced-mse-rss-walls',
+    'terramesh-rock-faced-pdf',
+    'Rock-faced reinforced soil system',
+    'Rock-faced MSE/RSS walls are classified as reinforced soil systems with a rock-faced mesh or gabion-style face, separate from basic gabion gravity walls.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'geogrid-reinforced-soil-slopes',
+    'geogrid-reinforced-earth-slopes-pdf',
+    'Geogrid reinforced slope concept',
+    'Geogrid reinforced soil slopes are classified as reinforced earthworks where geogrid layers and compacted fill work together to stabilise a slope or embankment.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'concrete-panel-mse-walls',
+    'concrete-panel-walls-pdf',
+    'Concrete panel MSE wall concept',
+    'Concrete panel MSE walls are classified as reinforced earth systems using concrete facing panels connected to soil reinforcement within engineered backfill.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  ),
+  (
+    'concrete-sleeper-walls',
+    'concrete-sleeper-wall-section-pdf',
+    'Concrete sleeper wall system',
+    'Concrete sleeper retaining walls are classified as vertical post-and-panel retaining wall systems, distinct from gravity walls and MSE walls.',
+    'general_note',
+    null,
+    'Product classification decision',
+    'medium',
+    'needs_review'
+  )
+) as x(product_slug, source_slug, title, body, evidence_type, page_reference, section_reference, confidence, review_status)
+join public.product_types p on p.slug = x.product_slug
+join public.sources s on s.slug = x.source_slug
+where not exists (
+  select 1
+  from public.evidence_notes existing
+  where existing.product_type_id = p.id
+    and existing.source_id = s.id
+    and existing.title = x.title
+);

@@ -27,6 +27,18 @@ type ProductSourceRecord = {
   sources: SourceRecord | null;
 };
 
+type EvidenceNoteRecord = {
+  id: string;
+  title: string;
+  body: string;
+  evidence_type: string;
+  page_reference: string | null;
+  section_reference: string | null;
+  confidence: string;
+  review_status: string;
+  sources: SourceRecord | null;
+};
+
 function ListSection({ title, items }: { title: string; items: string[] | null }) {
   if (!items || items.length === 0) return null;
 
@@ -102,10 +114,57 @@ function SourceCard({ productSource }: { productSource: ProductSourceRecord }) {
   );
 }
 
+function EvidenceNoteCard({ note }: { note: EvidenceNoteRecord }) {
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="flex flex-wrap gap-2">
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+          {note.evidence_type}
+        </span>
+        <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+          confidence: {note.confidence}
+        </span>
+        <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+          {note.review_status}
+        </span>
+      </div>
+
+      <h3 className="mt-4 text-lg font-semibold text-slate-950">{note.title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-700">{note.body}</p>
+
+      <div className="mt-4 rounded-xl bg-slate-50 p-3 text-sm text-slate-600">
+        <p>
+          <strong>Source:</strong>{" "}
+          {note.sources ? (
+            <Link href={`/sources/${note.sources.slug}`} className="text-blue-700 hover:underline">
+              {note.sources.title}
+            </Link>
+          ) : (
+            "No source linked"
+          )}
+        </p>
+
+        {note.page_reference && (
+          <p className="mt-1">
+            <strong>Page/reference:</strong> {note.page_reference}
+          </p>
+        )}
+
+        {note.section_reference && (
+          <p className="mt-1">
+            <strong>Section:</strong> {note.section_reference}
+          </p>
+        )}
+      </div>
+    </article>
+  );
+}
+
 export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const product = await getProductTypeBySlug(slug);
   const productSources = (product.product_sources || []) as ProductSourceRecord[];
+  const evidenceNotes = (product.evidence_notes || []) as EvidenceNoteRecord[];
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
@@ -162,6 +221,27 @@ export default async function ProductDetailPage({ params }: PageProps) {
         <ListSection title="QA checks" items={product.qa_checks} />
         <ListSection title="Common risks" items={product.common_risks} />
       </div>
+
+      <section className="mt-8">
+        <div className="mb-4">
+          <h2 className="text-2xl font-semibold text-slate-950">Evidence notes</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Draft source-backed notes for this retaining wall system. These are review items, not final engineering instructions.
+          </p>
+        </div>
+
+        {evidenceNotes.length > 0 ? (
+          <div className="grid gap-4">
+            {evidenceNotes.map((note) => (
+              <EvidenceNoteCard key={note.id} note={note} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-500">
+            No evidence notes yet.
+          </div>
+        )}
+      </section>
 
       <section className="mt-8">
         <div className="mb-4">
