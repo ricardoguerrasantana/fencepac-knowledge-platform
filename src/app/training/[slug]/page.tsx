@@ -4,6 +4,7 @@ import {
   getTrainingModuleBySlug,
   getWallSystemsBySlugs,
 } from "@/lib/data/knowledge";
+import { InteractiveQuiz } from "@/components/training/InteractiveQuiz";
 
 type PageProps = {
   params: Promise<{
@@ -299,46 +300,7 @@ export default async function TrainingModulePage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="mt-8">
-        <h2 className="text-2xl font-semibold text-slate-950">Quiz preview</h2>
-        <p className="mt-2 text-sm text-slate-600">
-          The quiz is still a preview. The next step will make it interactive.
-        </p>
-
-        <div className="mt-4 grid gap-4">
-          {quizQuestions.map((question) => (
-            <article
-              key={question.id}
-              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-sm font-medium text-slate-500">
-                  Question {question.question_order}
-                </p>
-                <StatusBadge value={question.source_status} />
-              </div>
-
-              <h3 className="mt-2 font-semibold text-slate-950">{question.question}</h3>
-
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                {question.options.map((option) => (
-                  <li key={option} className="rounded-xl bg-slate-50 px-3 py-2">
-                    {option}
-                  </li>
-                ))}
-              </ul>
-
-              <details className="mt-4 rounded-xl bg-emerald-50 p-3 text-sm text-emerald-900">
-                <summary className="cursor-pointer font-medium">Show answer</summary>
-                <p className="mt-2">
-                  <strong>Correct answer:</strong> {question.correct_answer}
-                </p>
-                <p className="mt-1">{question.explanation}</p>
-              </details>
-            </article>
-          ))}
-        </div>
-      </section>
+      <InteractiveQuiz questions={quizQuestions} />
     </main>
   );
 }
