@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 type ChecklistItem = {
   id: string;
@@ -57,30 +57,49 @@ const checklistItems: ChecklistItem[] = [
   },
 ];
 
+const CHECKLIST_STORAGE_EVENT = "competency-checklist-updated";
+
+function getServerSnapshot() {
+  return "{}";
+}
+
+function subscribeToChecklistUpdates(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(CHECKLIST_STORAGE_EVENT, callback);
+
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(CHECKLIST_STORAGE_EVENT, callback);
+  };
+}
+
+function getChecklistSnapshot(storageKey: string) {
+  return window.localStorage.getItem(storageKey) || "{}";
+}
+
+function parseChecklistSnapshot(snapshot: string): Record<string, boolean> {
+  try {
+    return JSON.parse(snapshot) as Record<string, boolean>;
+  } catch {
+    return {};
+  }
+}
+
+function writeChecklistSnapshot(storageKey: string, value: Record<string, boolean>) {
+  window.localStorage.setItem(storageKey, JSON.stringify(value));
+  window.dispatchEvent(new Event(CHECKLIST_STORAGE_EVENT));
+}
+
 export function CompetencyChecklist({ moduleSlug }: CompetencyChecklistProps) {
   const storageKey = `competency-checklist:${moduleSlug}`;
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    const storedValue = window.localStorage.getItem(storageKey);
+  const snapshot = useSyncExternalStore(
+    subscribeToChecklistUpdates,
+    () => getChecklistSnapshot(storageKey),
+    getServerSnapshot
+  );
 
-    if (storedValue) {
-      try {
-        setCheckedItems(JSON.parse(storedValue));
-      } catch {
-        setCheckedItems({});
-      }
-    }
-
-    setLoaded(true);
-  }, [storageKey]);
-
-  useEffect(() => {
-    if (!loaded) return;
-
-    window.localStorage.setItem(storageKey, JSON.stringify(checkedItems));
-  }, [checkedItems, loaded, storageKey]);
+  const checkedItems = useMemo(() => parseChecklistSnapshot(snapshot), [snapshot]);
 
   const completedCount = useMemo(
     () => checklistItems.filter((item) => checkedItems[item.id]).length,
@@ -91,14 +110,16 @@ export function CompetencyChecklist({ moduleSlug }: CompetencyChecklistProps) {
   const isComplete = completedCount === checklistItems.length;
 
   function toggleItem(itemId: string) {
-    setCheckedItems((current) => ({
-      ...current,
-      [itemId]: !current[itemId],
-    }));
+    const nextCheckedItems = {
+      ...checkedItems,
+      [itemId]: !checkedItems[itemId],
+    };
+
+    writeChecklistSnapshot(storageKey, nextCheckedItems);
   }
 
   function resetChecklist() {
-    setCheckedItems({});
+    writeChecklistSnapshot(storageKey, {});
   }
 
   return (
