@@ -76,6 +76,16 @@ export default async function HomePage() {
             Review the first Retaining Wall Basics module and use it as the prototype training path.
           </p>
         </Link>
+
+        <Link
+          href="/governance"
+          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+        >
+          <h2 className="text-xl font-semibold text-slate-950">Check governance dashboard</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Review source status, evidence review status, confidence levels and MVP readiness.
+          </p>
+        </Link>
       </section>
     </main>
   );
