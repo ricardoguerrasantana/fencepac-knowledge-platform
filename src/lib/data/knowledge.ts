@@ -96,11 +96,17 @@ export async function getTrainingModuleBySlug(slug: string) {
   }
 
   if (data.training_lessons) {
-    data.training_lessons.sort((a, b) => a.lesson_order - b.lesson_order);
+    data.training_lessons.sort(
+      (a: { lesson_order: number }, b: { lesson_order: number }) =>
+        a.lesson_order - b.lesson_order
+    );
   }
 
   if (data.quiz_questions) {
-    data.quiz_questions.sort((a, b) => a.question_order - b.question_order);
+    data.quiz_questions.sort(
+      (a: { question_order: number }, b: { question_order: number }) =>
+        a.question_order - b.question_order
+    );
   }
 
   return data;
