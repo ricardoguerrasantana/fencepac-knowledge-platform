@@ -14,19 +14,32 @@ type WallSystemRecord = {
   image_url: string | null;
 };
 
+const statusLabels: Record<string, string> = {
+  needs_review: "Needs review",
+  draft: "Draft",
+  external_research: "External research",
+  verified_company_knowledge: "Verified company knowledge",
+  unresolved_question: "Unresolved question",
+  superseded: "Superseded",
+  seeded: "Seeded",
+  reviewed: "Reviewed",
+};
+
 function StatusBadge({ value }: { value: string }) {
   const classes =
-    value === "reviewed" || value === "verified_company_knowledge"
+    value === "verified_company_knowledge" || value === "reviewed"
       ? "bg-emerald-50 text-emerald-700"
-      : value === "superseded" || value === "archived"
-        ? "bg-slate-100 text-slate-700"
-        : value === "draft" || value === "needs_review"
-          ? "bg-amber-50 text-amber-700"
-          : "bg-blue-50 text-blue-700";
+      : value === "needs_review" || value === "draft" || value === "unresolved_question"
+        ? "bg-amber-50 text-amber-700"
+        : value === "external_research" || value === "seeded"
+          ? "bg-blue-50 text-blue-700"
+          : value === "superseded"
+            ? "bg-slate-100 text-slate-700"
+            : "bg-slate-100 text-slate-700";
 
   return (
     <span className={`rounded-full px-3 py-1 text-xs font-medium ${classes}`}>
-      {value}
+      {statusLabels[value] || value}
     </span>
   );
 }

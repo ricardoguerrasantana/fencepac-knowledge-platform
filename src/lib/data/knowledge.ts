@@ -332,3 +332,17 @@ export async function getGovernanceDashboardData() {
     wallSystems: wallSystemsResult.data,
   };
 }
+
+export async function getProductTypeById(id: string) {
+  const { data, error } = await supabase
+    .from("product_types")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
