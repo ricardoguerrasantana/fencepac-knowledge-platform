@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 function requiredText(formData: FormData, key: string) {
   const value = formData.get(key)?.toString().trim();
@@ -60,6 +60,8 @@ function buildWallSystemPayload(formData: FormData) {
 export async function createWallSystem(formData: FormData) {
   const payload = buildWallSystemPayload(formData);
 
+  const supabase = getSupabaseAdmin();
+
   const { error } = await supabase.from("product_types").insert(payload);
 
   if (error) {
@@ -78,6 +80,8 @@ export async function updateWallSystem(formData: FormData) {
   const id = requiredText(formData, "id");
   const originalSlug = requiredText(formData, "original_slug");
   const payload = buildWallSystemPayload(formData);
+
+  const supabase = getSupabaseAdmin();
 
   const { error } = await supabase
     .from("product_types")
