@@ -29,7 +29,7 @@ supabase/.temp/
 .idea/
 
 # local/generated data
-data/
+/data/
 tmp/
 .cache/
 
