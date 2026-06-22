@@ -10,6 +10,7 @@ const navItems = [
   { href: "/review", label: "Review Queue" },
   { href: "/governance", label: "Governance" },
   { href: "/training", label: "Training" },
+  { href: "/manage", label: "Manage" },
 ];
 
 export function SiteHeader() {
