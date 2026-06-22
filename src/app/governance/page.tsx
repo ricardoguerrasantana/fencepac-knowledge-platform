@@ -146,17 +146,17 @@ export default async function GovernancePage() {
   const readinessItems = [
     {
       label: "Wall systems exist",
-      description: "The MVP has seeded retaining wall system records.",
+      description: "The platform has retaining wall system records.",
       complete: wallSystems.length > 0,
     },
     {
       label: "Sources are registered",
-      description: "The MVP has source records linked to wall systems.",
+      description: "The platform has source records linked to wall systems.",
       complete: sources.length > 0,
     },
     {
       label: "Evidence notes exist",
-      description: "The MVP has source-backed evidence notes.",
+      description: "The platform has source-backed evidence notes.",
       complete: evidenceNotes.length > 0,
     },
     {
@@ -166,12 +166,12 @@ export default async function GovernancePage() {
     },
     {
       label: "Training module exists",
-      description: "The MVP includes at least one training module with lessons and quiz.",
+      description: "The platform includes at least one training module with lessons and quiz.",
       complete: trainingModules.length > 0,
     },
     {
       label: "Not everything is verified",
-      description: "This is expected in the MVP. Needs-review and external-reference content should remain clearly marked.",
+      description: "This is expected in a controlled knowledge system. Needs-review and external-reference content should remain clearly marked.",
       complete: needsReviewEvidenceCount > 0 || externalSourceCount > 0,
     },
   ];
@@ -179,12 +179,12 @@ export default async function GovernancePage() {
   return (
     <main className="mx-auto max-w-7xl px-6 py-10">
       <div className="mb-8">
-        <p className="text-sm font-medium text-slate-500">MVP control centre</p>
+        <p className="text-sm font-medium text-slate-500">Knowledge control centre</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">
           Governance Dashboard
         </h1>
         <p className="mt-3 max-w-3xl text-slate-600">
-          Monitor source status, evidence review status, confidence levels and MVP readiness.
+          Monitor source status, evidence review status, confidence levels and Knowledge readiness.
           This dashboard helps show whether the knowledge base is controlled or still draft.
         </p>
       </div>
@@ -215,9 +215,9 @@ export default async function GovernancePage() {
 
       <section className="mt-8">
         <div className="mb-4">
-          <h2 className="text-2xl font-semibold text-slate-950">MVP readiness checklist</h2>
+          <h2 className="text-2xl font-semibold text-slate-950">Knowledge readiness checklist</h2>
           <p className="mt-2 text-sm text-slate-600">
-            This is a practical readiness check for the local MVP. It is not a formal compliance claim.
+            This is a practical readiness check for the internal knowledge platform. It is not a formal compliance claim.
           </p>
         </div>
 
@@ -236,7 +236,7 @@ export default async function GovernancePage() {
       <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
         <h2 className="font-semibold">Governance note</h2>
         <p className="mt-2">
-          This dashboard supports internal control of source-backed knowledge, but the MVP should not
+          This dashboard supports internal control of source-backed knowledge, but the platform should not
           claim ISO certification, engineering approval or public release readiness. Supplier and
           seeded content still needs human review before being treated as company knowledge.
         </p>

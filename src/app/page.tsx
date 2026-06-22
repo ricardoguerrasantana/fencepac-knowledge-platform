@@ -29,7 +29,7 @@ export default async function HomePage() {
   return (
     <main className="mx-auto max-w-7xl px-6 py-10">
       <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <p className="text-sm font-medium text-slate-500">Local MVP</p>
+        <p className="text-sm font-medium text-slate-500">Internal knowledge platform</p>
         <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-950">
           Fencepac Knowledge Platform
         </h1>
@@ -39,7 +39,7 @@ export default async function HomePage() {
         </p>
 
         <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-          MVP warning: this app is not engineering advice. Content is seeded for review and must be
+          Important notice: this app is not engineering advice. Content is seeded for review and must be
           checked against project-specific drawings, supplier documentation and supervisor direction.
         </div>
       </section>
@@ -75,7 +75,7 @@ export default async function HomePage() {
         >
           <h2 className="text-xl font-semibold text-slate-950">Open training module</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Review the first Retaining Wall Basics module and use it as the prototype training path.
+            Review the first Retaining Wall Basics module and use it as the guided training path.
           </p>
         </Link>
 
@@ -85,7 +85,7 @@ export default async function HomePage() {
         >
           <h2 className="text-xl font-semibold text-slate-950">Check governance dashboard</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Review source status, evidence review status, confidence levels and MVP readiness.
+            Review source status, evidence review status, confidence levels and Knowledge readiness.
           </p>
         </Link>
       </section>

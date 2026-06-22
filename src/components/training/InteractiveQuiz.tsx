@@ -164,7 +164,7 @@ export function InteractiveQuiz({ questions }: InteractiveQuizProps) {
               </p>
               <p className={passed ? "mt-1 text-sm text-emerald-700" : "mt-1 text-sm text-red-700"}>
                 {passed
-                  ? "Passed for MVP training purposes."
+                  ? "Passed for internal training purposes."
                   : "Below pass mark. Review the lesson and try again."}
               </p>
             </div>

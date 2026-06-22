@@ -127,12 +127,12 @@ export function CompetencyChecklist({ moduleSlug }: CompetencyChecklistProps) {
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-slate-500">Training sign-off prototype</p>
+            <p className="text-sm font-medium text-slate-500">Training self-check</p>
             <h2 className="mt-2 text-2xl font-semibold text-slate-950">
               Competency checklist
             </h2>
             <p className="mt-2 max-w-3xl text-sm text-slate-600">
-              This is a self-check for MVP training only. It does not replace formal competency
+              This is a self-check for internal training support. It does not replace formal competency
               assessment, supervisor sign-off, project-specific instructions or engineering review.
             </p>
           </div>
@@ -199,7 +199,7 @@ export function CompetencyChecklist({ moduleSlug }: CompetencyChecklistProps) {
         >
           {isComplete ? (
             <p>
-              Checklist complete for MVP purposes. A future version should save this against a
+              Checklist complete for internal training purposes. A future version should save this against a
               logged-in learner and reviewer.
             </p>
           ) : (
