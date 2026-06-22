@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getGlossaryTerms } from "@/lib/data/knowledge";
 
 export default async function GlossaryPage() {
