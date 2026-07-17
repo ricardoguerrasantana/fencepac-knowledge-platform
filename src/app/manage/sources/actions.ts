@@ -216,3 +216,117 @@ export async function createSource(
     };
   }
 }
+
+export type UpdateSourceResult =
+  | {
+      success: true;
+      slug: string;
+    }
+  | {
+      success: false;
+      message: string;
+    };
+
+export async function updateSourceMetadata(
+  formData: FormData
+): Promise<UpdateSourceResult> {
+  const supabase = getSupabaseAdmin();
+
+  try {
+    const id = requiredText(formData, "id");
+    const originalSlug = requiredText(formData, "original_slug");
+    const title = requiredText(formData, "title");
+    const sourceType = requiredText(formData, "source_type");
+    const status = requiredText(formData, "status");
+
+    const { data: existingSource, error: existingSourceError } =
+      await supabase
+        .from("sources")
+        .select("id, slug, source_kind")
+        .eq("id", id)
+        .single();
+
+    if (existingSourceError || !existingSource) {
+      throw new Error("Source record could not be found.");
+    }
+
+    const providedSlug = optionalText(formData, "slug");
+    const slug = slugify(providedSlug || title);
+
+    if (!slug) {
+      throw new Error("A valid source slug is required.");
+    }
+
+    const payload: {
+      title: string;
+      slug: string;
+      source_type: string;
+      status: string;
+      source_owner: string | null;
+      supplier: string | null;
+      notes: string | null;
+      is_confidential: boolean;
+      updated_at: string;
+      url?: string | null;
+      external_url?: string | null;
+    } = {
+      title,
+      slug,
+      source_type: sourceType,
+      status,
+      source_owner: optionalText(formData, "source_owner"),
+      supplier: optionalText(formData, "supplier"),
+      notes: optionalText(formData, "notes"),
+      is_confidential: formData.get("is_confidential") === "on",
+      updated_at: new Date().toISOString(),
+    };
+
+    if (existingSource.source_kind === "external_link") {
+      const externalUrl = normaliseUrl(
+        optionalText(formData, "external_url")
+      );
+
+      if (!externalUrl) {
+        throw new Error("External link sources require a valid URL.");
+      }
+
+      payload.url = externalUrl;
+      payload.external_url = externalUrl;
+    }
+
+    const { error: updateError } = await supabase
+      .from("sources")
+      .update(payload)
+      .eq("id", id);
+
+    if (updateError) {
+      throw new Error(updateError.message);
+    }
+
+    revalidatePath("/");
+    revalidatePath("/sources");
+    revalidatePath(`/sources/${originalSlug}`);
+    revalidatePath(`/sources/${slug}`);
+    revalidatePath("/manage");
+    revalidatePath("/manage/sources");
+    revalidatePath(`/manage/sources/${id}/edit`);
+    revalidatePath("/governance");
+
+    return {
+      success: true,
+      slug,
+    };
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Could not update the source.";
+
+    console.error("Could not update source metadata:", error);
+
+    return {
+      success: false,
+      message,
+    };
+  }
+}
