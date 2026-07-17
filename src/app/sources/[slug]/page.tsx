@@ -153,7 +153,36 @@ export default async function SourceDetailPage({ params }: PageProps) {
           </div>
         )}
 
-        {source.url ? (
+        {source.source_kind === "uploaded_file" && source.storage_path ? (
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <p className="text-sm font-semibold text-slate-700">
+              Uploaded source file
+            </p>
+
+            <p className="mt-1 text-sm text-slate-600">
+              {source.original_file_name ||
+                source.local_file_name ||
+                "Source document"}
+            </p>
+
+            <a
+              href={`/sources/${source.slug}/download`}
+              className="mt-4 inline-flex rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Download source file
+            </a>
+          </div>
+        ) : source.source_kind === "external_link" &&
+          (source.external_url || source.url) ? (
+          <a
+            href={source.external_url || source.url || "#"}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            Open external source
+          </a>
+        ) : source.url ? (
           <a
             href={source.url}
             target="_blank"
@@ -164,12 +193,11 @@ export default async function SourceDetailPage({ params }: PageProps) {
           </a>
         ) : (
           <div className="mt-6 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5">
-            <p className="text-sm font-semibold text-slate-700">Local file placeholder</p>
-            <p className="mt-1 text-sm text-slate-600">
-              {source.local_file_name || "No local file linked yet"}
+            <p className="text-sm font-semibold text-slate-700">
+              Manual reference
             </p>
-            <p className="mt-3 text-xs text-slate-500">
-              Later, approved files can be stored in Supabase Storage or linked from SharePoint/OneDrive.
+            <p className="mt-1 text-sm text-slate-600">
+              This source is recorded without an uploaded file or external link.
             </p>
           </div>
         )}
