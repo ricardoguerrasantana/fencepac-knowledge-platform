@@ -3,7 +3,11 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { UpdateSourceResult } from "./actions";
+import type {
+  ReplaceSourceFileResult,
+  UpdateSourceResult,
+} from "./actions";
+import { SourceFileReplacement } from "./SourceFileReplacement";
 
 type SourceRecord = {
   id: string;
@@ -25,6 +29,9 @@ type SourceRecord = {
 type SourceEditFormProps = {
   source: SourceRecord;
   action: (formData: FormData) => Promise<UpdateSourceResult>;
+  replaceFileAction: (
+    formData: FormData
+  ) => Promise<ReplaceSourceFileResult>;
 };
 
 const sourceTypeOptions = [
@@ -71,6 +78,7 @@ function formatFileSize(size: number | null) {
 export function SourceEditForm({
   source,
   action,
+  replaceFileAction,
 }: SourceEditFormProps) {
   const router = useRouter();
 
@@ -242,10 +250,16 @@ export function SourceEditForm({
             <p className="mt-1 text-xs text-slate-500">
               {formatFileSize(source.file_size_bytes)}
             </p>
-            <p className="mt-3 text-xs text-slate-500">
-              File replacement will be added in the next step.
-            </p>
           </div>
+        ) : null}
+
+        {sourceKind === "uploaded_file" ? (
+          <SourceFileReplacement
+            sourceId={source.id}
+            currentFileName={source.original_file_name}
+            currentFileSize={source.file_size_bytes}
+            action={replaceFileAction}
+          />
         ) : null}
 
         <label className="mt-6 flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">

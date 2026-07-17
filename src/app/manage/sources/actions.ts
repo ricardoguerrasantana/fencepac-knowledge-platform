@@ -330,3 +330,221 @@ export async function updateSourceMetadata(
     };
   }
 }
+
+export type ReplaceSourceFileResult =
+  | {
+      success: true;
+      slug: string;
+      message: string;
+      warning?: string;
+    }
+  | {
+      success: false;
+      message: string;
+    };
+
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export async function replaceSourceFile(
+  formData: FormData
+): Promise<ReplaceSourceFileResult> {
+  const supabase = getSupabaseAdmin();
+
+  let replacementBucket: string | null = null;
+  let replacementPath: string | null = null;
+  let databaseUpdated = false;
+
+  try {
+    const sourceId = requiredText(formData, "source_id");
+    const uploadId = requiredText(formData, "replacement_upload_id");
+    const storageBucket = requiredText(formData, "storage_bucket");
+    const storagePath = requiredText(formData, "storage_path");
+    const originalFileName = requiredText(
+      formData,
+      "original_file_name"
+    );
+
+    const fileMimeType =
+      optionalText(formData, "file_mime_type") ||
+      "application/octet-stream";
+
+    const fileSizeBytes = Number(
+      requiredText(formData, "file_size_bytes")
+    );
+
+    if (!UUID_PATTERN.test(sourceId)) {
+      throw new Error("Invalid source identifier.");
+    }
+
+    if (!UUID_PATTERN.test(uploadId)) {
+      throw new Error("Invalid replacement upload identifier.");
+    }
+
+    if (
+      originalFileName.includes("/") ||
+      originalFileName.includes("\\")
+    ) {
+      throw new Error("Invalid replacement file name.");
+    }
+
+    if (
+      !Number.isFinite(fileSizeBytes) ||
+      fileSizeBytes <= 0 ||
+      fileSizeBytes > 250 * 1024 * 1024
+    ) {
+      throw new Error("Invalid replacement file size.");
+    }
+
+    if (storageBucket !== SOURCE_FILE_BUCKET) {
+      throw new Error("Invalid source storage bucket.");
+    }
+
+    const expectedStoragePath = `${uploadId}/${originalFileName}`;
+
+    if (storagePath !== expectedStoragePath) {
+      throw new Error(
+        "Replacement file path does not match the prepared upload."
+      );
+    }
+
+    replacementBucket = storageBucket;
+    replacementPath = storagePath;
+
+    const { data: source, error: sourceError } = await supabase
+      .from("sources")
+      .select(`
+        id,
+        slug,
+        source_kind,
+        storage_bucket,
+        storage_path,
+        original_file_name
+      `)
+      .eq("id", sourceId)
+      .single();
+
+    if (sourceError || !source) {
+      throw new Error("Source record could not be found.");
+    }
+
+    if (source.source_kind !== "uploaded_file") {
+      throw new Error(
+        "Only uploaded-file sources can have their file replaced."
+      );
+    }
+
+    const { data: storedObjects, error: verificationError } =
+      await supabase.storage
+        .from(storageBucket)
+        .list(uploadId, {
+          limit: 100,
+          search: originalFileName,
+        });
+
+    if (verificationError) {
+      throw new Error(
+        `Could not verify replacement file: ${verificationError.message}`
+      );
+    }
+
+    const replacementExists = storedObjects?.some(
+      (item) => item.name === originalFileName
+    );
+
+    if (!replacementExists) {
+      throw new Error(
+        "The replacement file could not be found in Supabase Storage."
+      );
+    }
+
+    const { error: updateError } = await supabase
+      .from("sources")
+      .update({
+        local_file_name: originalFileName,
+        storage_bucket: storageBucket,
+        storage_path: storagePath,
+        original_file_name: originalFileName,
+        file_mime_type: fileMimeType,
+        file_size_bytes: fileSizeBytes,
+        uploaded_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", sourceId);
+
+    if (updateError) {
+      throw new Error(updateError.message);
+    }
+
+    databaseUpdated = true;
+
+    let warning: string | undefined;
+
+    const oldBucket = source.storage_bucket;
+    const oldPath = source.storage_path;
+
+    if (
+      oldBucket &&
+      oldPath &&
+      (oldBucket !== storageBucket || oldPath !== storagePath)
+    ) {
+      const { error: oldFileRemovalError } = await supabase.storage
+        .from(oldBucket)
+        .remove([oldPath]);
+
+      if (oldFileRemovalError) {
+        console.error(
+          "Replacement succeeded, but the old source file could not be removed:",
+          oldFileRemovalError
+        );
+
+        warning =
+          "The replacement was saved, but the previous file could not be removed automatically.";
+      }
+    }
+
+    revalidatePath("/");
+    revalidatePath("/sources");
+    revalidatePath(`/sources/${source.slug}`);
+    revalidatePath("/manage");
+    revalidatePath("/manage/sources");
+    revalidatePath(`/manage/sources/${sourceId}/edit`);
+    revalidatePath("/governance");
+
+    return {
+      success: true,
+      slug: source.slug,
+      message: "Source file replaced successfully.",
+      warning,
+    };
+  } catch (error) {
+    if (
+      !databaseUpdated &&
+      replacementBucket &&
+      replacementPath
+    ) {
+      const { error: cleanupError } = await supabase.storage
+        .from(replacementBucket)
+        .remove([replacementPath]);
+
+      if (cleanupError) {
+        console.error(
+          "Could not clean up failed replacement upload:",
+          cleanupError
+        );
+      }
+    }
+
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Could not replace the source file.";
+
+    console.error("Could not replace source file:", error);
+
+    return {
+      success: false,
+      message,
+    };
+  }
+}

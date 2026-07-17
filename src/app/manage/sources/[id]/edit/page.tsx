@@ -2,7 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { SourceEditForm } from "@/app/manage/sources/SourceEditForm";
-import { updateSourceMetadata } from "@/app/manage/sources/actions";
+import {
+  replaceSourceFile,
+  updateSourceMetadata,
+} from "@/app/manage/sources/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -71,6 +74,7 @@ export default async function EditSourcePage({
       <SourceEditForm
         source={source}
         action={updateSourceMetadata}
+        replaceFileAction={replaceSourceFile}
       />
     </main>
   );
